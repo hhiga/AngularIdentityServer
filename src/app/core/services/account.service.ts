@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { UserManager, UserManagerSettings, User } from 'oidc-client';
+import { UserManager, User } from 'oidc-client';
 
 export { User };
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class AccountService {
   private manager: UserManager;
   private user: User | null;
@@ -21,7 +22,7 @@ export class AccountService {
         redirect_uri: 'http://localhost:4200/auth-callback',
         post_logout_redirect_uri: 'http://localhost:4200',
         response_type: 'code',
-        scope: 'WeatherApi openid profile',
+        scope: 'IdentityServerApi openid profile',
         response_mode: 'query'
       });
     this.manager.getUser().then(user => {
@@ -50,10 +51,6 @@ export class AccountService {
    public async completeAuthentication() {
      this.user = await this.manager.signinRedirectCallback();
      this._user.next(this.user);
-   }
-
-   public isAuthenticated(): boolean {
-     return this.user != null && !this.user.expired;
    }
 
    get user$(): Observable<User> {
