@@ -12,7 +12,7 @@ export class WeatherForecastService {
   private weatherApiUrl: string;
 
   constructor(private httpClient: HttpClient) {
-    this.weatherApiUrl = environment.apiUrl + '/api/weatherForecast';
+    this.weatherApiUrl = environment.apiUrl + 'api/weatherForecast';
   }
 
   getWeatherForecast(): Observable<Weather[]> {

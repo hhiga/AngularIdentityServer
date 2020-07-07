@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { UserManager, User } from 'oidc-client';
+import { environment } from '../../../environments/environment';
 
 export { User };
 
@@ -17,7 +18,7 @@ export class AccountService {
   constructor(private httpClient: HttpClient) {
     this.manager = new UserManager(
       {
-        authority: 'https://localhost:44397/',
+        authority: environment.apiUrl,
         client_id: 'angular-app',
         redirect_uri: 'http://localhost:4200/auth-callback',
         post_logout_redirect_uri: 'http://localhost:4200',
